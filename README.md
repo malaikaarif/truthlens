@@ -3,7 +3,7 @@
 An AI-powered fake news detection system that combines a trained Machine Learning model with Groq's LLaMA 3.3 70B to classify news as real or fake — and explain exactly why.
 
 ## Live Demo
-[truthlens.onrender.com](https://truthlens.onrender.com)
+[truthlens-1rzw.onrender.com](https://truthlens-1rzw.onrender.com)
 
 ## How It Works
 

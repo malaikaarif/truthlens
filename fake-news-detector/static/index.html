@@ -242,15 +242,16 @@ async function detect(){
 }
 function showResults(d){
   const fake=d.label==='Fake';
-  const cls=fake?'fake':'real';
+const uncertain=d.label==='Uncertain';
+const cls=fake?'fake':uncertain?'fake':'real';
   document.getElementById('vNum').textContent=d.confidence;
   document.getElementById('vNum').className='v-num '+cls;
   const chip=document.getElementById('vChip');
   chip.className='v-chip '+cls;
   chip.innerHTML=`<span class="v-chip-dot"></span>${d.label}`;
   const vt=document.getElementById('vTitle');
-  vt.textContent=fake?'This article shows signs of misinformation.':'This article appears credible.';
-  vt.className='v-title '+cls;
+  vt.textContent=d.verdict;
+vt.className='v-title '+cls;
   document.getElementById('vSub').textContent=d.verdict;
   const ml=document.getElementById('mLabel');
   ml.textContent=d.label;ml.style.color=fake?'var(--red)':'var(--emerald)';

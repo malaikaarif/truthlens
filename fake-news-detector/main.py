@@ -17,7 +17,6 @@ with open("model.pkl", "rb") as f:
     model = pickle.load(f)
 print("Model loaded.")
 
-
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 class NewsInput(BaseModel):
@@ -43,12 +42,17 @@ def detect(news: NewsInput):
     proba = model.predict_proba([text])[0]
     pred = model.predict([text])[0]
 
-    label = "Real" if pred == 1 else "Fake"
     confidence = round(float(max(proba)) * 100, 2)
-    verdict = (
-        "This article appears legitimate." if label == "Real"
-        else "This article shows signs of misinformation."
-    )
+
+    if pred == 1:
+        label = "Real"
+        verdict = "This article appears credible."
+    elif confidence < 70:
+        label = "Uncertain"
+        verdict = "Low confidence — model is uncertain. Verify from multiple sources."
+    else:
+        label = "Fake"
+        verdict = "This article shows signs of misinformation."
 
     prompt = f"""You are a fake news analysis expert.
 
